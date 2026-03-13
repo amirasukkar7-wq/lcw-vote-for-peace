@@ -1297,25 +1297,22 @@ function castVote(){
   btn.innerHTML = '⏳ &nbsp; جاري التسجيل...';
   btn.disabled = true;
 
-  // Send to Google Sheets
+  // Send to Google Sheets via GET (avoids CORS issues)
   if (SCRIPT_URL && !SCRIPT_URL.includes('PASTE_YOUR')) {
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ name: name, area: city })
-    })
-    .then(r => r.json())
-    .then(data => {
-      votes = data.total || votes + 1;
-      finishVote(name, city, btn);
-    })
-    .catch(() => {
-      // If network fails, still count locally
-      votes++;
-      finishVote(name, city, btn);
-    });
+    var url = SCRIPT_URL
+      + '?name=' + encodeURIComponent(name)
+      + '&area=' + encodeURIComponent(city);
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        votes = data.total || votes + 1;
+        finishVote(name, city, btn);
+      })
+      .catch(() => {
+        votes++;
+        finishVote(name, city, btn);
+      });
   } else {
-    // No script URL set yet — works locally
     votes++;
     finishVote(name, city, btn);
   }
@@ -1388,3 +1385,4 @@ loadVoteCount();
 </script>
 </body>
 </html>
+
