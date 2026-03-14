@@ -1182,7 +1182,7 @@ const df = document.getElementById('dotsField');
 /* ── State ── */
 let votes = 0;
 const TARGET = 20000;
-let voted = localStorage.getItem('lcw_voted') === '1';
+let voted = localStorage.getItem('lcw_signed_2026') === '1';
 
 const AVCOLORS = [
   {bg:'#E8F5E9',fg:'#2A7A2E'},{bg:'#FFF8E7',fg:'#D4961A'},
@@ -1253,7 +1253,7 @@ function castVote(){
 
   // Lock UI immediately
   voted = true;
-  localStorage.setItem('lcw_voted','1');
+  localStorage.setItem('lcw_signed_2026','1');
   const btn = document.getElementById('voteBtn');
   btn.innerHTML = '⏳ &nbsp; جاري التسجيل...';
   btn.disabled = true;
