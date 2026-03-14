@@ -1046,7 +1046,7 @@ footer p {
 
     <div class="prog-labels">
       <span id="progRemain">يتبقّى 20,000 توقيع</span>
-      <span>🎯 الهدف: 20,000</span>
+      <span>🎯 الهدف: 20,000 توقيع</span>
     </div>
 
     <div class="fields" id="fieldsWrap">
@@ -1125,7 +1125,7 @@ footer p {
 
   <!-- Share -->
   <div class="share-card">
-    <div class="share-title">شارك وساعدنا نوصل الهدف! 🚀</div>
+    <div class="share-title">شارك وساعدنا نوصل للهدف! 🚀</div>
     <div class="share-sub">كل توقيع يحسب — شارك مع أصدقائك وعائلتك</div>
     <div class="copy-row">
       <button class="copy-btn pdf-btn" onclick="downloadPDF()">📄 تحميل البيان PDF</button>
@@ -1248,7 +1248,7 @@ function castVote(){
   if(voted) return;
   const name = document.getElementById('nameIn').value.trim() || 'مجهول الهوية';
   const org = document.getElementById('orgIn') ? document.getElementById('orgIn').value.trim() : '';
-  const city = document.getElementById('cityIn').value.trim() || '';
+  const city = document.getElementById('cityIn') ? document.getElementById('cityIn').value.trim() : '';
   const areaFull = [org, city].filter(Boolean).join(' · ');
 
   // Lock UI immediately
