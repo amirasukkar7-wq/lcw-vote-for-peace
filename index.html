@@ -223,7 +223,7 @@ header {
   animation: popUp 0.7s ease 0.1s both;
 }
 
-.hero-title .red-word  { color: var(--red); }
+.hero-title .red-word  { color: var(--red); font-weight: 900; }
 .hero-title .gold-word { color: var(--gold); }
 .hero-title .grn-word  { color: var(--green); }
 
@@ -404,8 +404,8 @@ main {
   display: flex;
   justify-content: space-between;
   font-size: 0.77rem;
-  color: var(--muted);
-  font-weight: 600;
+  color: var(--red);
+  font-weight: 700;
 }
 
 /* ══ Inputs ══ */
@@ -1012,21 +1012,13 @@ footer p {
   </div>
 
   <h2 class="hero-title">
-    نداء عاجل لوقف الحرب<br>
-    وحماية المدنيين وتعزيز <span class="grn-word">مسارات السلام</span> 🕊️
+    <span class="red-word">وقّعوا معنا</span> 🕊️
   </h2>
 
   <p class="hero-sub">
-    نداء من الهيئات النسائية والمدنية والفعاليات في لبنان<br>
-    إلى المجتمع الدولي للتحرك العاجل من أجل حماية المدنيين.
+    بيان من المجلس النسائي اللبناني
   </p>
 
-  <div class="hero-pill">
-    <div class="hp-avs" id="heroAvatars"></div>
-    <div class="hp-txt">
-      <strong id="heroCount">0 صوتوا</strong>
-      <span>انضموا للحملة حتى الآن</span>
-    </div>
   </div>
 </section>
 
@@ -1042,7 +1034,7 @@ footer p {
   <div class="card card-gold-top" style="animation-delay:0.05s">
 
     <div class="prog-row">
-      <div class="prog-big" id="progBig">0 <sup>صوت</sup></div>
+      <div class="prog-big" id="progBig">0 <sup>توقيع</sup></div>
       <div class="prog-pct" id="progPct">0%</div>
     </div>
 
@@ -1053,37 +1045,37 @@ footer p {
     </div>
 
     <div class="prog-labels">
-      <span id="progRemain">يتبقّى 20,000 صوت</span>
+      <span id="progRemain">يتبقّى 20,000 توقيع</span>
       <span>🎯 الهدف: 20,000</span>
     </div>
 
     <div class="fields" id="fieldsWrap">
       <div class="field-wrap">
         <span class="field-icon">👤</span>
-        <input class="field-in" type="text" id="nameIn" placeholder="اسمك الكريم (اختياري)" maxlength="40"/>
+        <input class="field-in" type="text" id="nameIn" placeholder="الاسم *" maxlength="60"/>
       </div>
       <div class="field-wrap">
-        <span class="field-icon">📍</span>
-        <input class="field-in" type="text" id="cityIn" placeholder="مدينتك (اختياري)" maxlength="30"/>
+        <span class="field-icon">🏛️</span>
+        <input class="field-in" type="text" id="orgIn" placeholder="المؤسسة / النقابة / الجمعية (اختياري)" maxlength="60"/>
       </div>
     </div>
 
     <button class="btn-vote" id="voteBtn" onclick="castVote()">
-      🕊️ &nbsp; أصوّت من أجل وقف الحرب
+      ✍️ &nbsp; وقّعوا معنا
     </button>
 
     <div class="success-msg" id="successMsg">
-      🎉 شكراً لك! صوتك سُجّل. شارك هذه الصفحة مع أصدقائك!
+      🎉 شكراً لك! توقيعك سُجّل. شارك هذه الصفحة مع أصدقائك!
     </div>
 
     <div class="voters-head">
-      <span class="voters-label">آخر من انضموا</span>
+      <span class="voters-label" style="color:var(--red);">آخر من وقّعوا</span>
       <div class="live-badge">مباشر</div>
     </div>
 
     <div class="voter-list" id="voterList">
       <div class="empty-state" id="emptyState">
-        <span>كن أول من يصوّت! 🕊️</span>
+        <span>كن أول من يوقّع! 🕊️</span>
       </div>
     </div>
   </div>
@@ -1167,7 +1159,7 @@ footer p {
   <!-- Share -->
   <div class="share-card">
     <div class="share-title">شارك وساعدنا نوصل الهدف! 🚀</div>
-    <div class="share-sub">كل صوت يحسب — شارك مع أصدقائك وعائلتك</div>
+    <div class="share-sub">كل توقيع يحسب — شارك مع أصدقائك وعائلتك</div>
     <div class="copy-row">
       <button class="copy-btn pdf-btn" onclick="downloadPDF()">📄 تحميل البيان PDF</button>
     </div>
@@ -1222,7 +1214,7 @@ const df = document.getElementById('dotsField');
 
 /* ── State ── */
 let votes = 0;
-const TARGET = 10000;
+const TARGET = 20000;
 let voted = localStorage.getItem('lcw_voted') === '1';
 
 const AVCOLORS = [
@@ -1251,11 +1243,11 @@ function loadVoteCount() {
 
 function updateUI(){
   const pct = Math.min((votes/TARGET*100), 100);
-  document.getElementById('progBig').innerHTML = votes.toLocaleString('ar-LB')+' <sup>صوت</sup>';
+  document.getElementById('progBig').innerHTML = votes.toLocaleString('ar-LB')+' <sup>توقيع</sup>';
   document.getElementById('progPct').textContent = pct.toFixed(1)+'%';
   document.getElementById('progFill').style.width = pct.toFixed(1)+'%';
-  document.getElementById('progRemain').textContent = 'يتبقّى '+(Math.max(TARGET-votes,0)).toLocaleString('ar-LB')+' صوت';
-  document.getElementById('heroCount').textContent = votes.toLocaleString('ar-LB')+' صوتوا';
+  document.getElementById('progRemain').textContent = 'يتبقّى '+(Math.max(TARGET-votes,0)).toLocaleString('ar-LB')+' توقيع';
+  if(document.getElementById('heroCount')) document.getElementById('heroCount').textContent = votes.toLocaleString('ar-LB')+' وقّعوا';
 }
 
 function addVoter(name, city, isNew=false){
@@ -1288,7 +1280,9 @@ function addVoter(name, city, isNew=false){
 function castVote(){
   if(voted) return;
   const name = document.getElementById('nameIn').value.trim() || 'مجهول الهوية';
+  const org = document.getElementById('orgIn') ? document.getElementById('orgIn').value.trim() : '';
   const city = document.getElementById('cityIn').value.trim() || '';
+  const areaFull = [org, city].filter(Boolean).join(' · ');
 
   // Lock UI immediately
   voted = true;
@@ -1301,12 +1295,12 @@ function castVote(){
   if (SCRIPT_URL && !SCRIPT_URL.includes('PASTE_YOUR')) {
     var url = SCRIPT_URL
       + '?name=' + encodeURIComponent(name)
-      + '&area=' + encodeURIComponent(city);
+      + '&area=' + encodeURIComponent(areaFull);
     fetch(url)
       .then(r => r.json())
       .then(data => {
         votes = data.total || votes + 1;
-        finishVote(name, city, btn);
+        finishVote(name, areaFull, btn);
       })
       .catch(() => {
         votes++;
@@ -1322,17 +1316,17 @@ function finishVote(name, city, btn) {
   updateUI();
   addVoter(name, city, true);
   document.getElementById('fieldsWrap').style.display='none';
-  btn.innerHTML = '✅ &nbsp; تم تسجيل صوتك!';
+  btn.innerHTML = '✅ &nbsp; تم تسجيل توقيعك!';
   btn.classList.add('done');
   document.getElementById('successMsg').style.display='block';
   launchConfetti();
-  showToast('🎉 صوتك سُجّل! شارك الرابط مع أصدقائك');
+  showToast('🎉 توقيعك سُجّل! شارك الرابط مع أصدقائك');
 }
 
 if(voted){
   document.getElementById('fieldsWrap').style.display='none';
   const btn=document.getElementById('voteBtn');
-  btn.innerHTML='✅ &nbsp; تم تسجيل صوتك!';
+  btn.innerHTML='✅ &nbsp; تم تسجيل توقيعك!';
   btn.classList.add('done'); btn.disabled=true;
 }
 
